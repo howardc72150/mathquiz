@@ -9,8 +9,7 @@ class Start:
         self.headingLabel           = Label(self.labelBackgroundFrame, height=3, width=42, text="Math Quiz", font=("Verdana 15 bold"), 
                                             fg="#747475", justify=CENTER, bg="white")
         self.underLabelFrame        = Frame(width=600, height=7, bg="#e3e3e3")
-        self.mainFrame              = Frame(width=600, height=150)
-        self.startGameButton        = Button(self.mainFrame, text="Play", justify=CENTER)
+        self.startGameButton        = Button(text="PLAY", font=("Verdana 15 bold"), fg="#747475", border=0)
 
         self.headingLabel.grid()
         self.headingFrame.grid(row=0)
@@ -18,8 +17,8 @@ class Start:
         self.blankFrame.grid(row=2)
         self.labelBackgroundFrame.grid(row=3)
         self.underLabelFrame.grid(row=4)
-        self.mainFrame.grid(row=5)
-        self.startGameButton.grid()
+        self.startGameButton.grid(row=6, pady=50)
+        
 if __name__ == "__main__":
     root = Tk()
     root.title("Math Quiz")
