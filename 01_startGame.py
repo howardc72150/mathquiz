@@ -36,7 +36,7 @@ class Game:
                                    fg="#6C6C6C", bg="#CCE5FF", width=45, height=2, justify=CENTER)
         self.info_frame = Frame(self.frame, width=500, height=100)
         self.question_info_frame = Frame(self.frame, width=500, height=80, bg="white")
-        self.question_label = Label(self.question_info_frame, bg="white", width=62, height=5, text="What is 5+5?", font=("Helvetica 10"), justify=CENTER)
+        self.question_label = Label(self.question_info_frame, bg="white", width=62, height=5, text="What is 5+4?", font=("Helvetica 10"), justify=CENTER)
         self.under_question_info_frame = Frame(self.frame, width=500, height=5, bg="#E8E8E8")
         self.blank_frame = Frame(width=500, height=150)
 
