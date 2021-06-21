@@ -1,4 +1,5 @@
 from tkinter import *
+from functools import partial
 
 class Start:
     def __init__(self, root):
@@ -39,6 +40,7 @@ class Game:
         self.question_label = Label(self.question_info_frame, bg="white", width=62, height=5, text="What is 5+4?", font=("Helvetica 10"), justify=CENTER)
         self.under_question_info_frame = Frame(self.frame, width=500, height=5, bg="#E8E8E8")
         self.blank_frame = Frame(width=500, height=150)
+        self.user_input = Entry(self.blank_frame, pady=5, width=25)
 
         self.heading_label.grid(row=1)
         self.heading_frame.grid(row=1)
@@ -48,6 +50,7 @@ class Game:
         self.question_label.grid(row=4)
         self.under_question_info_frame.grid(row=5)
         self.blank_frame.grid(row=6)
+        self.user_input.grid()
         
         
 gui = Tk()
