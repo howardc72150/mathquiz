@@ -52,6 +52,7 @@ class Game:
         self.blank_frame.grid(row=6)
         self.user_input.grid()
         
+
         
 gui = Tk()
 gui.title("Math Quiz")
