@@ -42,7 +42,7 @@ class Game:
         self.under_question_info_frame = Frame(self.frame, width=500, height=5, bg="#E8E8E8")
         self.blank_frame = Frame(self.frame, width=500, height=40)
         self.user_input = Entry(width=30)
-        self.test = Button(text="help")
+        self.test = Button(text="help", width=20)
 
         self.heading_label.grid(row=1)
         self.heading_frame.grid(row=1)
