@@ -28,8 +28,9 @@ class Start:
         
 class Game:
     def __init__(self):
-        self.frame = Frame(width=500, height=600)
+        self.frame = Frame(width=500, height=600, )
         self.frame.grid()
+
 
         self.heading_frame = Frame(self.frame, width=500, height=65, bg="#CCE5FF")
         self.under_heading_frame = Frame(self.frame, width=500, height=6, bg="#BDDEFF")
@@ -39,8 +40,9 @@ class Game:
         self.question_info_frame = Frame(self.frame, width=500, height=80, bg="white")
         self.question_label = Label(self.question_info_frame, bg="white", width=62, height=5, text="What is 5+4?", font=("Helvetica 10"), justify=CENTER)
         self.under_question_info_frame = Frame(self.frame, width=500, height=5, bg="#E8E8E8")
-        self.blank_frame = Frame(width=500, height=150)
-        self.user_input = Entry(self.blank_frame, width=25)
+        self.blank_frame = Frame(self.frame, width=500, height=40)
+        self.user_input = Entry(width=30)
+        self.test = Button(text="help")
 
         self.heading_label.grid(row=1)
         self.heading_frame.grid(row=1)
@@ -50,7 +52,8 @@ class Game:
         self.question_label.grid(row=4)
         self.under_question_info_frame.grid(row=5)
         self.blank_frame.grid(row=6)
-        self.user_input.grid()
+        self.user_input.grid(row=7)
+        self.test.grid(row=8)
         
         
 
