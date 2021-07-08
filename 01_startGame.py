@@ -28,7 +28,7 @@ class Start:
         
 class Game:
     def __init__(self):
-        self.frame = Frame(width=500, height=600, )
+        self.frame = Frame(width=500, height=600)
         self.frame.grid()
 
 
