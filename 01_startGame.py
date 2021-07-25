@@ -43,7 +43,7 @@ class Game:
         self.user_input                 = Entry(width=21, font=("Helvetica 15"))
         self.second_blank_frame         = Frame(width=500, height=40)
         self.help_button                = Button(text="Help", font=("Helvetica 12"), width=15, command=lambda: self.toHelp())
-        self.instruction_button         = Button(text="Instructions", font=("Helvetica 12"), width=15)
+        self.stats_button               = Button(text="Statistics", font=("Helvetica 12"), width=15)
 
         self.heading_label.grid(row=1)
         self.heading_frame.grid(row=1)
@@ -56,13 +56,13 @@ class Game:
         self.user_input.grid(row=7)
         self.second_blank_frame.grid(row=8)
         self.help_button.grid(row=9)
-        self.instruction_button.grid(row=10)
+        self.stats_button.grid(row=10)
     
-    def toHelp(self):
+    def toHelp(self):   
         self.frame.destroy()
         self.user_input.destroy()
         self.help_button.destroy()
-        self.instruction_button.destroy()
+        self.stats_button.destroy()
         Help()
 
 class Help:
@@ -70,15 +70,21 @@ class Help:
         self.frame = Frame()
         self.frame.grid()
 
-        self.heading_frame              = Frame(self.frame, width=500, height=65, bg="#CCE5FF")
+        self.heading_frame              = Frame(self.frame, width=500, height=20, bg="#CCE5FF")
         self.under_heading_frame        = Frame(self.frame, width=500, height=6, bg="#BDDEFF")
-        self.heading_label              = Label(self.heading_frame, text="Math Quiz", font=("Helvetica 15"),
-                                                fg="#6C6C6C", bg="#CCE5FF", width=45, height=2, justify=CENTER)
+        self.blank_frame                = Frame(self.frame, height=50)
+        self.heading_label              = Label(self.frame, text="Help and Instructions", font=("Helvetica 15 bold"), fg="#6C6C6C", padx=50, justify=LEFT)
+        self.second_blank_frame         = Frame(self.frame, height=50)
+        self.instructions_text          = Frame(self.frame, text="Begin the quiz by clicking the Play button." \
+                                                                 "Type your answer in the entry form below" \
+                                                                 "the question and click the button to submit it.",  font=("Helvetica 15 bold"))
 
         self.heading_frame.grid()
-        self.under_heading_frame.grid()
-        self.heading_label.grid()        
-        
+        self.under_heading_frame.grid()        
+        self.blank_frame.grid()
+        self.heading_label.grid()
+        self.second_blank_frame.grid() 
+        self.instructions_text.grid()    
 
 
 gui = Tk()
