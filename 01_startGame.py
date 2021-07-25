@@ -5,14 +5,14 @@ class Start:
     def __init__(self, root):
         self.frame = Frame()
         self.frame.grid()
-        self.headingFrame           = Frame(self.frame, width=500, height=18, bg="#CCE5FF")
-        self.underHeadingFrame      = Frame(self.frame, width=500, height=6, bg="#BDDEFF")
-        self.blankFrame             = Frame(self.frame, height=40, width=500)
-        self.labelBackgroundFrame   = Frame(self.frame, height=150, width=500, bg="white")
-        self.headingLabel           = Label(self.labelBackgroundFrame, height=3, width=41, text="Math Quiz", font=("Helvetica 15 bold"), 
-                                            fg="#6C6C6C", justify=CENTER, bg="white")
-        self.underLabelFrame        = Frame(self.frame, width=500, height=7, bg="#E8E8E8")
-        self.startGameButton        = Button(self.frame, text="PLAY", font=("Helvetica 15 bold"), fg="#747475", border=0, command=lambda: self.toGame())
+        self.headingFrame               = Frame(self.frame, width=500, height=18, bg="#CCE5FF")
+        self.underHeadingFrame          = Frame(self.frame, width=500, height=6, bg="#BDDEFF")
+        self.blankFrame                 = Frame(self.frame, height=40, width=500)
+        self.labelBackgroundFrame       = Frame(self.frame, height=150, width=500, bg="white")
+        self.headingLabel               = Label(self.labelBackgroundFrame, height=3, width=41, text="Math Quiz", font=("Helvetica 15 bold"), 
+                                                fg="#6C6C6C", justify=CENTER, bg="white")
+        self.underLabelFrame            = Frame(self.frame, width=500, height=7, bg="#E8E8E8")
+        self.startGameButton            = Button(self.frame, text="PLAY", font=("Helvetica 15 bold"), fg="#747475", border=0, command=lambda: self.toGame())
 
         self.headingLabel.grid()
         self.headingFrame.grid(row=0)
@@ -31,18 +31,19 @@ class Game:
         self.frame = Frame(width=500, height=600)
         self.frame.grid()
 
-
-        self.heading_frame = Frame(self.frame, width=500, height=65, bg="#CCE5FF")
-        self.under_heading_frame = Frame(self.frame, width=500, height=6, bg="#BDDEFF")
-        self.heading_label = Label(self.heading_frame, text="Math Quiz", font=("Helvetica 15"),
-                                   fg="#6C6C6C", bg="#CCE5FF", width=45, height=2, justify=CENTER)
-        self.info_frame = Frame(self.frame, width=500, height=100)
-        self.question_info_frame = Frame(self.frame, width=500, height=80, bg="white")
-        self.question_label = Label(self.question_info_frame, bg="white", width=62, height=5, text="What is 5+4?", font=("Helvetica 10"), justify=CENTER)
-        self.under_question_info_frame = Frame(self.frame, width=500, height=5, bg="#E8E8E8")
-        self.blank_frame = Frame(self.frame, width=500, height=40)
-        self.user_input = Entry(width=30)
-        self.test = Button(text="help", width=20)
+        self.heading_frame              = Frame(self.frame, width=500, height=65, bg="#CCE5FF")
+        self.under_heading_frame        = Frame(self.frame, width=500, height=6, bg="#BDDEFF")
+        self.heading_label              = Label(self.heading_frame, text="Math Quiz", font=("Helvetica 15"),
+                                                fg="#6C6C6C", bg="#CCE5FF", width=45, height=2, justify=CENTER)
+        self.info_frame                 = Frame(self.frame, width=500, height=100)
+        self.question_info_frame        = Frame(self.frame, width=500, height=80, bg="white")
+        self.question_label             = Label(self.question_info_frame, bg="white", width=45, height=5, text="What is 5+4?", font=("Helvetica 15"), justify=CENTER)
+        self.under_question_info_frame  = Frame(self.frame, width=500, height=5, bg="#E8E8E8")
+        self.blank_frame                = Frame(self.frame, width=500, height=40)
+        self.user_input                 = Entry(width=21, font=("Helvetica 15"))
+        self.second_blank_frame         = Frame(width=500, height=40)
+        self.help_button                = Button(text="Help", font=("Helvetica 12"), width=15, command=lambda: self.toHelp())
+        self.instruction_button         = Button(text="Instructions", font=("Helvetica 12"), width=15)
 
         self.heading_label.grid(row=1)
         self.heading_frame.grid(row=1)
@@ -53,8 +54,30 @@ class Game:
         self.under_question_info_frame.grid(row=5)
         self.blank_frame.grid(row=6)
         self.user_input.grid(row=7)
-        self.test.grid(row=8)
-        
+        self.second_blank_frame.grid(row=8)
+        self.help_button.grid(row=9)
+        self.instruction_button.grid(row=10)
+    
+    def toHelp(self):
+        self.frame.destroy()
+        self.user_input.destroy()
+        self.help_button.destroy()
+        self.instruction_button.destroy()
+        Help()
+
+class Help:
+    def __init__(self):
+        self.frame = Frame()
+        self.frame.grid()
+
+        self.heading_frame              = Frame(self.frame, width=500, height=65, bg="#CCE5FF")
+        self.under_heading_frame        = Frame(self.frame, width=500, height=6, bg="#BDDEFF")
+        self.heading_label              = Label(self.heading_frame, text="Math Quiz", font=("Helvetica 15"),
+                                                fg="#6C6C6C", bg="#CCE5FF", width=45, height=2, justify=CENTER)
+
+        self.heading_frame.grid()
+        self.under_heading_frame.grid()
+        self.heading_label.grid()        
         
 
 
