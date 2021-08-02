@@ -79,9 +79,9 @@ class Game:
     def checkAnswer(self, equation):
         print(self.user_input.get())
         print(eval(equation))
-        if math.ceil(float(self.user_input.get())) == math.ceil(eval(equation)):
+        if math.ceil(int(self.user_input.get())) == math.ceil(eval(equation)):
             print("true")
-            self.question_label.configure(text="Correct")
+            self.question_info_frame.configure(bg="#008000")
 
 
     def toStats(self, round_number):
