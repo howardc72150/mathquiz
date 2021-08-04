@@ -1,4 +1,4 @@
-import math
+import time
 import random
 from tkinter import *
 from functools import partial
@@ -77,12 +77,16 @@ class Game:
         self.footer.grid(row=16)
 
     def checkAnswer(self, equation, round_number):
+        print(eval(equation))
         if self.user_input.get() != "":
             print(self.user_input.get())
             print(eval(equation))
-            if math.ceil(int(self.user_input.get())) == math.ceil(eval(equation)):
+            if (int(self.user_input.get())) == eval(equation):
                 self.user_input.configure(bg="#90EE90")
-                self.frame.destroy()
+
+
+                time.sleep(3)
+                #self.frame.destroy()
                 round_number += 1
                 Game(round_number)
             else:
@@ -93,27 +97,17 @@ class Game:
 
     def toStats(self, round_number):
         self.frame.destroy()
-        self.user_input.destroy()
-        self.help_button.destroy()
-        self.blank_frame.destroy()
-        self.stats_button.destroy()
-        self.second_blank_frame.destroy()
         Stats(round_number)
 
     def toHelp(self, round_number):
         self.frame.destroy()
-        self.user_input.destroy()
-        self.help_button.destroy()
-        self.blank_frame.destroy()
-        self.stats_button.destroy()
-        self.second_blank_frame.destroy()
         Help(round_number)
 
 class Stats:
     def __init__(self, round_number):
         self.frame = Frame()
         self.dismiss_button             = Button(self.frame, text="Dismiss", font=("Helvetica 12"), width=15, command=lambda: self.dismissStats(round_number))
-        self.dismiss_button.grid()
+        self.dismiss_button.grid(row=1)
 
     def dismissStats(self, round_number):
         self.frame.destroy()
