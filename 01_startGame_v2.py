@@ -85,13 +85,12 @@ class Game:
 
     def checkAnswer(self, equation, round_number):
         if self.user_input.get() != "":
-            print(equation)
+            print(self.question_label['text'])
             print(self.user_input.get())
-            print(eval(equation))
-            if (int(self.user_input.get())) == eval(equation):
-                time.sleep(1)
+            if (int(self.user_input.get())) == eval(self.question_label['text']):
+                self.user_input.config(bg="#90EE90")
+                self.user_input.delete(0, 'end')
                 round_number += 1
-                #self.newQuestion(self, round_number)
                 operators = ["+", "-", "*"]
                 equation = "{} {} {}".format(random.randint(0,12), random.choice(operators), random.randint(0,12))
                 self.round_label.configure(text="Round {}\nEnter your answer in the entry below\nand mark it by clicking Check Answer.".format(round_number))
