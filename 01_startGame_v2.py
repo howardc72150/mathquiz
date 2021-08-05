@@ -78,25 +78,26 @@ class Game:
     def newQuestion(self, round_number):
         operators = ["+", "-", "*"]
         equation = "{} {} {}".format(random.randint(0,12), random.choice(operators), random.randint(0,12))
-        #self.round_label.configure(text="Round {}\nEnter your answer in the entry below\nand mark it by clicking Check Answer.".format(round_number))
-        #self.question_label.configure(text=equation)
-        #self.user_input.configure(bg="#BDDEFF")
+        # # self.round_label.configure(text="Round {}\nEnter your answer in the entry below\nand mark it by clicking Check Answer.".format(round_number))
+        # self.round_label.config(text="hellow")
+        # self.question_label.config(text=equation)
         return equation
+
+
 
     def checkAnswer(self, equation, round_number):
         if self.user_input.get() != "":
-            print(self.question_label['text'])
-            print(self.user_input.get())
             if (int(self.user_input.get())) == eval(self.question_label['text']):
                 self.user_input.config(bg="#90EE90")
-                self.user_input.delete(0, 'end')
-                round_number += 1
-                operators = ["+", "-", "*"]
-                equation = "{} {} {}".format(random.randint(0,12), random.choice(operators), random.randint(0,12))
-                self.round_label.configure(text="Round {}\nEnter your answer in the entry below\nand mark it by clicking Check Answer.".format(round_number))
-                self.question_label.configure(text=equation)
+                
             else:
                 self.user_input.configure(bg="#FF5733")
+            
+            round_number += 1
+            operators = ["+", "-", "*"]
+            equation = "{} {} {}".format(random.randint(0,12), random.choice(operators), random.randint(0,12))
+            self.round_label.configure(text="Round {}\nEnter your answer in the entry below\nand mark it by clicking Check Answer.".format(round_number))
+            self.question_label.configure(text=equation)
         else:
             self.user_input.configure(bg="#FF5733")
 
@@ -111,10 +112,31 @@ class Game:
 class Stats:
     def __init__(self, round_number):
         self.frame = Frame()
-        self.dismiss_button             = Button(self.frame, text="Dismiss", font=("Helvetica 12"), width=15, command=lambda: self.dismissStats(round_number))
-        self.dismiss_button.grid(row=1)
+        self.frame.grid()
 
-    def dismissStats(self, round_number):
+        self.heading_frame              = Frame(self.frame, width=500, height=20, bg="#CCE5FF")
+        self.under_heading_frame        = Frame(self.frame, width=500, height=6, bg="#BDDEFF")
+        self.blank_frame                = Frame(self.frame, height=50)
+        self.heading_label              = Label(self.frame, text="Statistics", font=("Helvetica 15 bold"), fg="#6C6C6C", justify=CENTER)
+        self.second_blank_frame         = Frame(self.frame, height=50)
+        self.instructions_text          = Label(self.frame, text="Begin the quiz by clicking the Play button.\n"
+                                                                 "Type your answer in the entry form below\n"
+                                                                 "the question and click the button to submit it.",  font=("Helvetica 12"), justify=CENTER)
+        self.third_blank_frame          = Frame(self.frame, width=500, height=50)
+        self.dismiss_button             = Button(self.frame, text="Dismiss", font=("Helvetica 12"), width=15, command=lambda: self.dismissHelp(round_number))
+        self.fourth_blank_frame         = Frame(self.frame, width=500, height=35)
+
+        self.heading_frame.grid()
+        self.under_heading_frame.grid()        
+        self.blank_frame.grid()
+        self.heading_label.grid()
+        self.second_blank_frame.grid() 
+        self.instructions_text.grid()
+        self.third_blank_frame.grid()
+        self.dismiss_button.grid()
+        self.fourth_blank_frame.grid()
+    
+    def dismissHelp(self, round_number):
         self.frame.destroy()
         Game(round_number)
 
