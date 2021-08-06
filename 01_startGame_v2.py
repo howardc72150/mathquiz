@@ -5,7 +5,8 @@ from functools import partial
 
 class Start:
     def __init__(self, root):
-        round_number = 1
+        round_number = IntVar
+        round_number.set(1)
 
         self.frame = Frame()
         self.frame.grid()
@@ -100,6 +101,8 @@ class Game:
             self.question_label.configure(text=equation)
         else:
             self.user_input.configure(bg="#FF5733")
+            
+        self.user_input.delete(0, 'end')
 
     def toStats(self, round_number):
         self.frame.destroy()
