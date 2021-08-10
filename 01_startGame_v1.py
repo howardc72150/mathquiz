@@ -5,9 +5,6 @@ from functools import partial
 
 class Start:
     def __init__(self, root):
-        round_number = IntVar
-        round_number.set(1)
-
         self.frame = Frame()
         self.frame.grid()
         self.headingFrame               = Frame(self.frame, width=500, height=18, bg="#CCE5FF")
@@ -33,6 +30,9 @@ class Start:
         
 class Game:
     def __init__(self, round_number):
+        round_number = IntVar
+        round_number.set(1)
+        
             # create random math equation
         operators = ["+", "-", "*"]
         equation = "{} {} {}".format(random.randint(0,12), random.choice(operators), random.randint(0,12))
@@ -52,7 +52,7 @@ class Game:
         self.under_question_info_frame  = Frame(self.frame, width=500, height=5, bg="#E8E8E8")
         self.third_blank_frame          = Frame(self.frame, width=500, height=40)
         self.user_input                 = Entry(self.frame, width=21, font=("Helvetica 15"))
-        self.check_answer_button        = Button(self.frame, text="Check Answer", font=("Helvetica 12"), width=15, command=lambda: self.checkAnswer(equation, round_number))
+        self.check_answer_button        = Button(self.frame, text="Check Answer", font=("Helvetica 12"), width=15, command=lambda: self.checkAnswer(self, equation, round_number))
         self.fourth_blank_frame         = Frame(self.frame, width=500, height=40)
         self.help_button                = Button(self.frame, text="Help", font=("Helvetica 12"), width=15, command=lambda: self.toHelp(round_number))
         self.stats_button               = Button(self.frame, text="Statistics", font=("Helvetica 12"), width=15, command=lambda: self.toStats(round_number))
@@ -77,7 +77,7 @@ class Game:
         self.footer_blank.grid(row=15)
         self.footer.grid(row=16)
 
-    def checkAnswer(self, equation, round_number):
+    def checkAnswer(self, equation):
         print(eval(equation))
         if self.user_input.get() != "":
             print(self.user_input.get())
@@ -88,8 +88,9 @@ class Game:
 
                 time.sleep(3)
                 #self.frame.destroy()
-                round_number += 1
-                Game(round_number)
+                current_round = self.round_number.get()
+                self.round_number.set(current_round+1)
+                Game(current_round)
             else:
                 self.user_input.configure(bg="#FF5733")
         else:
