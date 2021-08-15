@@ -6,7 +6,7 @@ from functools import partial
 class Start:
     def __init__(self, root):
         round_number = IntVar
-        round_number.set(1)
+        #round_number.set(1)
 
         self.frame = Frame()
         self.frame.grid()

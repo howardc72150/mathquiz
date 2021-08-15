@@ -14,7 +14,7 @@ class Start:
         self.headingLabel               = Label(self.labelBackgroundFrame, height=3, width=41, text="Math Quiz", font=("Helvetica 15 bold"), 
                                                 fg="#6C6C6C", justify=CENTER, bg="white")
         self.underLabelFrame            = Frame(self.frame, width=500, height=7, bg="#E8E8E8")
-        self.startGameButton            = Button(self.frame, text="PLAY", font=("Helvetica 15 bold"), fg="#747475", border=0, command=lambda: self.toGame(round_number))
+        self.startGameButton            = Button(self.frame, text="PLAY", font=("Helvetica 15 bold"), fg="#747475", border=0, command=lambda: self.toGame())
 
         self.headingLabel.grid()
         self.headingFrame.grid(row=0)
@@ -24,19 +24,13 @@ class Start:
         self.underLabelFrame.grid(row=4)
         self.startGameButton.grid(row=6, pady=50)
 
-    def toGame(self, round_number):
+    def toGame(self):
         self.frame.destroy()
-        Game(round_number)
+        Game().createVars()
+        Game()
         
 class Game:
-    def __init__(self, round_number):
-        round_number = IntVar
-        round_number.set(1)
-        
-            # create random math equation
-        operators = ["+", "-", "*"]
-        equation = "{} {} {}".format(random.randint(0,12), random.choice(operators), random.randint(0,12))
-
+    def __init__(self):
         self.frame = Frame(width=500, height=600)
         self.frame.grid()
 
@@ -45,20 +39,20 @@ class Game:
         self.heading_label              = Label(self.heading_frame, text="Math Quiz", font=("Helvetica 15"),
                                                 fg="#6C6C6C", bg="#CCE5FF", width=45, height=2, justify=CENTER)
         self.blank_frame                = Frame(self.frame, width=500, height=30)
-        self.test                       = Label(self.frame, text="Round {}\n\nLorem ipsum dolor sit amet, consectetur\nadipiscing elit. In eleifend interdum.".format(round_number), font=("Helvetica 12"), justify=CENTER)
+        self.test                       = Label(self.frame, text="Round {}\n\nEnter your answer in the entry\nbox below and click Check Answer.".format(self.round_number), font=("Helvetica 12"), justify=CENTER)
         self.second_blank_frame         = Frame(self.frame, width=500, height=30)
         self.question_info_frame        = Frame(self.frame, width=500, height=30, bg="white")
-        self.question_label             = Label(self.question_info_frame, bg="white", width=45, height=3, text=equation, font=("Helvetica 15"), justify=CENTER)
+        self.question_label             = Label(self.question_info_frame, bg="white", width=45, height=3, text=self.newQuestion(), font=("Helvetica 15"), justify=CENTER)
         self.under_question_info_frame  = Frame(self.frame, width=500, height=5, bg="#E8E8E8")
         self.third_blank_frame          = Frame(self.frame, width=500, height=40)
         self.user_input                 = Entry(self.frame, width=21, font=("Helvetica 15"))
-        self.check_answer_button        = Button(self.frame, text="Check Answer", font=("Helvetica 12"), width=15, command=lambda: self.checkAnswer(self, equation, round_number))
+        self.check_answer_button        = Button(self.frame, text="Check Answer", font=("Helvetica 12"), width=15, command=lambda: self.checkAnswer())
         self.fourth_blank_frame         = Frame(self.frame, width=500, height=40)
-        self.help_button                = Button(self.frame, text="Help", font=("Helvetica 12"), width=15, command=lambda: self.toHelp(round_number))
-        self.stats_button               = Button(self.frame, text="Statistics", font=("Helvetica 12"), width=15, command=lambda: self.toStats(round_number))
+        self.help_button                = Button(self.frame, text="Help", font=("Helvetica 12"), width=15, command=lambda: self.toHelp())
+        self.stats_button               = Button(self.frame, text="Statistics", font=("Helvetica 12"), width=15, command=lambda: self.toStats(self.round_number))
         self.footer_blank               = Frame(self.frame, width=500, height=20)
         self.footer                     = Frame(self.frame,width=500, height=6, bg="#CCE5FF")
-    
+
         self.heading_label.grid(row=1)
         self.heading_frame.grid(row=1)
         self.under_heading_frame.grid(row=2)
@@ -76,8 +70,25 @@ class Game:
         self.stats_button.grid(row=14)
         self.footer_blank.grid(row=15)
         self.footer.grid(row=16)
+    
+    def createVars(self):
+        self.round_number = IntVar()
+        self.round_number.set(1)
+        self.correctly_answered = IntVar()
+        self.correctly_answered.set(0)
+        self.incorrectly_answered = IntVar()
+        self.incorrectly_answered.set(0)
 
-    def checkAnswer(self, equation):
+        current_equation = StringVar()
+
+    def newQuestion(self):
+        operators = ["+", "-", "*"]
+        equation = "{} {} {}".format(random.randint(0,12), random.choice(operators), random.randint(0,12))
+        self.current_equation = equation
+        return equation
+
+    def checkAnswer(self):
+        equation = self.current_equation
         print(eval(equation))
         if self.user_input.get() != "":
             print(self.user_input.get())
@@ -85,38 +96,67 @@ class Game:
             if (int(self.user_input.get())) == eval(equation):
                 self.user_input.configure(bg="#90EE90")
 
+                is_right = self.correctly_answered.get()
+                is_right += 1
+                self.correctly_answered.set(is_right)
 
-                time.sleep(3)
-                #self.frame.destroy()
-                current_round = self.round_number.get()
-                self.round_number.set(current_round+1)
-                Game(current_round)
             else:
                 self.user_input.configure(bg="#FF5733")
+                is_wrong = self.incorrectly_answered.get()
+                is_wrong += 1
+                self.incorrectly_answered.set(is_wrong)
         else:
             self.user_input.configure(bg="#FF5733")
-
-
+        
+        self.question_label.config(text=self.newQuestion())
+        self.round_number += 1
+        self.test.config(text="Round {}\n\nEnter your answer in the entry\nbox below and click Check Answer.".format(self.round_number))
+        
+        
     def toStats(self, round_number):
-        self.frame.destroy()
-        Stats(round_number)
 
-    def toHelp(self, round_number):
+        num_correct = self.correctly_answered.get()
+        num_wrong = self.incorrectly_answered.get()
+
         self.frame.destroy()
-        Help(round_number)
+        Stats(round_number, num_correct, num_wrong)
+
+    def toHelp(self):
+        self.frame.destroy()
+        Help()
 
 class Stats:
-    def __init__(self, round_number):
+    def __init__(self, round_number, correctly_answered, incorrectly_answered):
         self.frame = Frame()
-        self.dismiss_button             = Button(self.frame, text="Dismiss", font=("Helvetica 12"), width=15, command=lambda: self.dismissStats(round_number))
-        self.dismiss_button.grid(row=1)
+        self.frame.grid()
 
-    def dismissStats(self, round_number):
+        self.heading_frame              = Frame(self.frame, width=500, height=20, bg="#CCE5FF")
+        self.under_heading_frame        = Frame(self.frame, width=500, height=6, bg="#BDDEFF")
+        self.blank_frame                = Frame(self.frame, height=50)
+        self.heading_label              = Label(self.frame, text="Statistics", font=("Helvetica 15 bold"), fg="#6C6C6C", justify=CENTER)
+        self.second_blank_frame         = Frame(self.frame, height=50)
+        self.instructions_text          = Label(self.frame, text="Answered correctly: {}\nAnswered incorrectly: {}\n".format(correctly_answered, incorrectly_answered),  font=("Helvetica 12"), justify=CENTER)
+        self.third_blank_frame          = Frame(self.frame, width=500, height=50)
+        self.dismiss_button             = Button(self.frame, text="Dismiss", font=("Helvetica 12"), width=15, command=lambda: self.dismissStats())
+        self.fourth_blank_frame         = Frame(self.frame, width=500, height=35)
+
+        self.heading_frame.grid()
+        self.under_heading_frame.grid()        
+        self.blank_frame.grid()
+        self.heading_label.grid()
+        self.second_blank_frame.grid() 
+        self.instructions_text.grid()
+        self.third_blank_frame.grid()
+        self.dismiss_button.grid()
+        self.fourth_blank_frame.grid()
+
+    def dismissStats(self):
         self.frame.destroy()
-        Game(round_number)
+        Game().createVars()
+        Game()
 
 class Help:
-    def __init__(self, round_number):
+    def __init__(self):
         self.frame = Frame()
         self.frame.grid()
 
@@ -129,7 +169,7 @@ class Help:
                                                                  "Type your answer in the entry form below\n"
                                                                  "the question and click the button to submit it.",  font=("Helvetica 12"), justify=CENTER)
         self.third_blank_frame          = Frame(self.frame, width=500, height=50)
-        self.dismiss_button             = Button(self.frame, text="Dismiss", font=("Helvetica 12"), width=15, command=lambda: self.dismissHelp(round_number))
+        self.dismiss_button             = Button(self.frame, text="Dismiss", font=("Helvetica 12"), width=15, command=lambda: self.dismissHelp())
         self.fourth_blank_frame         = Frame(self.frame, width=500, height=35)
 
         self.heading_frame.grid()
@@ -142,9 +182,10 @@ class Help:
         self.dismiss_button.grid()
         self.fourth_blank_frame.grid()
     
-    def dismissHelp(self, round_number):
+    def dismissHelp(self):
         self.frame.destroy()
-        Game(round_number)
+        Game().createVars()
+        Game()
 
 
 gui = Tk()
