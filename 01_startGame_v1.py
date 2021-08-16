@@ -24,13 +24,23 @@ class Start:
         self.underLabelFrame.grid(row=4)
         self.startGameButton.grid(row=6, pady=50)
 
-    def toGame(self):
+    def toGame(self, ):
         self.frame.destroy()
-        Game().createVars()
         Game()
         
 class Game:
     def __init__(self):
+        self.round_number = IntVar()
+        self.round_number.set(1)
+
+        self.correctly_answered = IntVar()
+        self.correctly_answered.set(0)
+
+        self.incorrectly_answered = IntVar()
+        self.incorrectly_answered.set(0)
+
+        current_equation = StringVar()
+
         self.frame = Frame(width=500, height=600)
         self.frame.grid()
 
@@ -71,16 +81,6 @@ class Game:
         self.footer_blank.grid(row=15)
         self.footer.grid(row=16)
     
-    def createVars(self):
-        self.round_number = IntVar()
-        self.round_number.set(1)
-        self.correctly_answered = IntVar()
-        self.correctly_answered.set(0)
-        self.incorrectly_answered = IntVar()
-        self.incorrectly_answered.set(0)
-
-        current_equation = StringVar()
-
     def newQuestion(self):
         operators = ["+", "-", "*"]
         equation = "{} {} {}".format(random.randint(0,12), random.choice(operators), random.randint(0,12))
@@ -152,7 +152,6 @@ class Stats:
 
     def dismissStats(self):
         self.frame.destroy()
-        Game().createVars()
         Game()
 
 class Help:
@@ -184,7 +183,6 @@ class Help:
     
     def dismissHelp(self):
         self.frame.destroy()
-        Game().createVars()
         Game()
 
 
